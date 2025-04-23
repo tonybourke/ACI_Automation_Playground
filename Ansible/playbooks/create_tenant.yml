@@ -1,0 +1,45 @@
+---
+- name: Add Tenants
+  hosts: apic1
+  connection: local
+  tasks:
+    - name: Add Tenant1
+      cisco.aci.aci_tenant:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "Tenant1"
+        description: "Tenant Created Using Ansible"
+    - name: Add VRF
+      cisco.aci.aci_vrf:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        vrf: "VRF_Tenant1_VRF1"
+        tenant: "Tenant1"
+        policy_control_preference: "unenforced"
+    - name: Bridge Domain
+      cisco.aci.aci_bd:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        vrf: "VRF_Tenant1_VRF1"
+        tenant: "Tenant1"
+        bd: "BD_Tenant1_BD1"
+    - name: Create subnet for BD
+      cisco.aci.aci_bd_subnet:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "Tenant1"
+        bd: "BD_Tenant1_BD1"
+        gateway: 10.1.10.1
+        mask: 24

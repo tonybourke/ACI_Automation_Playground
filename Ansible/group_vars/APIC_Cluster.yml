@@ -1,0 +1,14 @@
+---
+tenants:
+  - name: Tenant1
+    vrfs:
+      - name: T1_VRF1
+      - name: T1_VRF2
+  - name: Tenant2
+    vrfs:
+      - name: T2_VRF1
+      - name: T2_VRF2
+  - name: Tenant3
+    vrfs:
+      - name: T3_VRF1
+      - name: T3_VRF2
