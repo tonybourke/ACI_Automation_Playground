@@ -1,0 +1,30 @@
+---
+- name: Add Tenants and such
+  hosts: apic1
+  connection: local
+  tasks:
+    - name: Add Tenants
+      cisco.aci.aci_tenant:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "{{ item.name }}"
+        description: "Tenant Created Using Ansible with a sick loop, man"
+      loop: "{{ tenants }}"
+    #- name: Add VRFs
+    #  cisco.aci.aci_vrf:
+    #    host: "{{ ansible_host }}"
+    #    username: "{{ username }}"
+    #    password: "{{ password }}"
+    #    state: "present"
+    #    validate_certs: False
+    #    vrf: "{{ item }}"
+    #    tenant: "Tenant1"
+    #    policy_control_preference: "unenforced"
+     # loop: "{{ tenants | subelements('vrfs') }}"
+    - name: Debug
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: "{{ tenants | subelements('vrfs') }}"
