@@ -1,0 +1,9 @@
+---
+- name: Testing the VRF loop
+  ansible.builtin.debug:
+    msg: "{{ vrf_loop.name }}"
+- name: Run BD loop
+  ansible.builtin.include_tasks: ../tasks/bd_loop.yml
+  loop: "{{ vrf_loop.bds }}"
+  loop_control:
+    loop_var: bd_loop

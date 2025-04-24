@@ -1,0 +1,21 @@
+---
+
+- name: Testing
+  hosts: localhost
+  gather_facts: false
+  vars:
+    objs:
+      - key1: value1, key2: [value2, value3]
+      - key1: value4, key2: [value5, value6]
+  tasks:
+    - name: create directories
+      ansible.builtin.debug:
+        msg: "path={{ item }}"
+      loop:
+        objs
+    # - name: create files
+    #   ansible.builtin.debug:
+    #     msg: " path={{ item.0.key1 }}/{{ item.1 }}"
+    #   with_subelements:
+    #     - objs
+    #     - key2

@@ -1,0 +1,10 @@
+---
+- name: Testing the BD loop
+  ansible.builtin.debug:
+    msg: "{{ bd_loop.name }}"
+- name: Run subnet loop
+  ansible.builtin.include_tasks: ../tasks/subnet_loop.yml
+  loop: "{{ bd_loop.subnets }}"
+  loop_control:
+    loop_var: subnet_loop
+  ignore_errors: true # Some BDs might not have subnets

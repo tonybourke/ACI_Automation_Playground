@@ -1,0 +1,4 @@
+---
+- name: Testing the subnet loop
+  ansible.builtin.debug:
+    msg: "{{ subnet_loop.ip }}/{{ subnet_loop.mask }}"

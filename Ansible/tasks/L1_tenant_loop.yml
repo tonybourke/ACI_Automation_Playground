@@ -1,0 +1,9 @@
+---
+- name: Debug Tenant Task
+  ansible.builtin.debug:
+    msg: "{{ tenant_loop.name }}"
+- name: Run VRF loop
+  ansible.builtin.include_tasks: ../tasks/vrf_loop.yml
+  loop: "{{ tenant_loop.vrfs }}"
+  loop_control:
+    loop_var: vrf_loop

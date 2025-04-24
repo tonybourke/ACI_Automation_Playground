@@ -1,1 +1,7 @@
-
+---
+all:
+  children:
+    APIC_Cluster:
+      hosts:
+        apic1:
+          
