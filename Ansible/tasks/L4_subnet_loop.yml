@@ -2,3 +2,14 @@
 - name: Testing the subnet loop
   ansible.builtin.debug:
     msg: "{{ subnet_loop.ip }}/{{ subnet_loop.mask }}"
+- name: Create subnet for BD
+  cisco.aci.aci_bd_subnet:
+    host: "{{ ansible_host }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    state: "present"
+    validate_certs: False
+    tenant: "{{ tenant_loop.name }}"
+    bd: "{{ bd_loop.name }}"
+    gateway: "{{ subnet_loop.ip }}"
+    mask: "{{ subnet_loop.mask }}"

@@ -2,8 +2,17 @@
 - name: Debug Tenant Task
   ansible.builtin.debug:
     msg: "{{ tenant_loop.name }}"
+- name: Add Tenant (from loop)
+  cisco.aci.aci_tenant:
+    host: "{{ ansible_host }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    state: "present"
+    validate_certs: False
+    tenant: "{{ tenant_loop.name }}"
+    description: "Tenant Created Using Ansible via looping"
 - name: Run VRF loop
-  ansible.builtin.include_tasks: ../tasks/vrf_loop.yml
+  ansible.builtin.include_tasks: ../tasks/L2_vrf_loop.yml
   loop: "{{ tenant_loop.vrfs }}"
   loop_control:
     loop_var: vrf_loop

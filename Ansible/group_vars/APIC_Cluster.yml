@@ -3,7 +3,7 @@ tenants:
   - name: Tenant1
     vrfs:
       - name: T1_VRF1
-        enforced: no
+        enforced: unenforced
         bds:
           - name: DMZ
             subnets:
@@ -14,27 +14,27 @@ tenants:
               - ip: 10.1.20.1
                 mask: 24
       - name: T1_VRF2
-        enforced: no
+        enforced: unenforced
         bds:
           - name: T1_VRF2_BD
   - name: Tenant2
     vrfs:
       - name: T2_VRF1
-        enforced: no
+        enforced: unenforced
         bds:
           - name: T2_VRF1_BD
       - name: T2_VRF2
-        enforced: no
+        enforced: enforced
         bds:
           - name: T2_VRF2_BD
   - name: Tenant3
     vrfs:
       - name: T3_VRF1
-        enforced: no
+        enforced: enforced
         bds:
           - name: T3_VRF1_BD
       - name: T3_VRF2
-        enforced: no
+        enforced: unenforced
         bds:
           - name: T3_VRF2_BD
 

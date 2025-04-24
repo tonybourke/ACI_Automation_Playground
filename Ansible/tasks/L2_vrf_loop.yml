@@ -2,8 +2,18 @@
 - name: Testing the VRF loop
   ansible.builtin.debug:
     msg: "{{ vrf_loop.name }}"
+- name: Add VRF
+  cisco.aci.aci_vrf:
+    host: "{{ ansible_host }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    state: "present"
+    validate_certs: False
+    tenant: "{{ tenant_loop.name }}"
+    vrf: "{{ vrf_loop.name }}"
+    policy_control_preference: "{{ vrf_loop.enforced }}"
 - name: Run BD loop
-  ansible.builtin.include_tasks: ../tasks/bd_loop.yml
+  ansible.builtin.include_tasks: ../tasks/L3_bd_loop.yml
   loop: "{{ vrf_loop.bds }}"
   loop_control:
     loop_var: bd_loop

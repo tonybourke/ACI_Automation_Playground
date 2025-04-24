@@ -1,8 +1,12 @@
 ---
 all:
+  vars:
+    username: admin
+    password: C1sco12345
+
   children:
     APIC_Cluster:
       hosts:
         apic1:
-          ansible_host: 
+          ansible_host: 10.10.20.14
           
