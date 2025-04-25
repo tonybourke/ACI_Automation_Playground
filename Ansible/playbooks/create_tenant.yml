@@ -5,7 +5,7 @@
   tasks:
     - name: Add Test1
       cisco.aci.aci_tenant:
-        host: "{{ inventory_hostname }}"
+        host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
         state: present
@@ -14,7 +14,7 @@
         description: Tenant Created Using Ansible
     - name: Add VRF
       cisco.aci.aci_vrf:
-        host: "{{ inventory_hostname }}"
+        host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
         state: present
@@ -24,7 +24,7 @@
         policy_control_preference: unenforced
     - name: Bridge Domain
       cisco.aci.aci_bd:
-        host: "{{ inventory_hostname }}"
+        host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
         state: present
@@ -34,6 +34,9 @@
         bd: BD_Test1_BD1
     - name: Create subnet for BD
       cisco.aci.aci_bd_subnet:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
         validate_certs: false
         tenant: Test1
         bd: BD_Test1_BD1
@@ -41,18 +44,20 @@
         mask: 24
     - name: Add a new AP
       cisco.aci.aci_ap:
-        host: "{{ inventory_hostname }}"
+        host: "{{ ansible_host }}"
         username: "{{ username }}"
         password: "{{ password }}"
+        validate_certs: false
         state: present
         tenant: Test1
         ap: AP_VLAN10
         description: AP for VLAN 10
     - name: Add a new EPG 
       cisco.aci.aci_epg:
-        host: apic
-        username: admin
-        password: SomeSecretPassword
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        validate_certs: false
         tenant: Test1
         ap: AP_VLAN10
         epg: BD_VLAN10
