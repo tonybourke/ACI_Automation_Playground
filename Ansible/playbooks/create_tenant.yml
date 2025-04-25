@@ -5,41 +5,56 @@
   tasks:
     - name: Add Test1
       cisco.aci.aci_tenant:
-        host: "{{ ansible_host }}"
+        host: "{{ inventory_hostname }}"
         username: "{{ username }}"
         password: "{{ password }}"
-        state: "present"
-        validate_certs: False
-        tenant: "Test1"
-        description: "Tenant Created Using Ansible"
+        state: present
+        validate_certs: false
+        tenant: Test1
+        description: Tenant Created Using Ansible
     - name: Add VRF
       cisco.aci.aci_vrf:
-        host: "{{ ansible_host }}"
+        host: "{{ inventory_hostname }}"
         username: "{{ username }}"
         password: "{{ password }}"
-        state: "present"
-        validate_certs: False
-        vrf: "VRF_Test1_VRF1"
-        tenant: "Test1"
-        policy_control_preference: "unenforced"
+        state: present
+        validate_certs: false
+        vrf: VRF_Test1_VRF1
+        tenant: Test1
+        policy_control_preference: unenforced
     - name: Bridge Domain
       cisco.aci.aci_bd:
-        host: "{{ ansible_host }}"
+        host: "{{ inventory_hostname }}"
         username: "{{ username }}"
         password: "{{ password }}"
-        state: "present"
-        validate_certs: False
-        vrf: "VRF_Tenant1_VRF1"
-        tenant: "Test1"
-        bd: "BD_Test1_BD1"
+        state: present
+        validate_certs: false
+        vrf: VRF_Tenant1_VRF1
+        tenant: Test1
+        bd: BD_Test1_BD1
     - name: Create subnet for BD
       cisco.aci.aci_bd_subnet:
-        host: "{{ ansible_host }}"
-        username: "{{ username }}"
-        password: "{{ password }}"
-        state: "present"
-        validate_certs: False
-        tenant: "Test1"
-        bd: "BD_Test1_BD1"
+        validate_certs: false
+        tenant: Test1
+        bd: BD_Test1_BD1
         gateway: 10.1.10.1
         mask: 24
+    - name: Add a new AP
+      cisco.aci.aci_ap:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: present
+        tenant: Test1
+        ap: AP_VLAN10
+        description: AP for VLAN 10
+    - name: Add a new EPG 
+      cisco.aci.aci_epg:
+        host: apic
+        username: admin
+        password: SomeSecretPassword
+        tenant: Test1
+        ap: AP_VLAN10
+        epg: BD_VLAN10
+        description: VLAN 10
+        bd: prod_bd

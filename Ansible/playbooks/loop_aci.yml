@@ -3,7 +3,6 @@
   hosts: apic1
   connection: local
   tasks:
- 
     - name: Tenant loop
       ansible.builtin.include_tasks: ../tasks/L1_tenant_loop.yml
       loop: "{{ tenants }}"
