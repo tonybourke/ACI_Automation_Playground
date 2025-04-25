@@ -4,37 +4,56 @@ tenants:
     vrfs:
       - name: T1_VRF1
         enforced: unenforced
-        bds:
-          - name: DMZ
+        netcent_vlans:
+          - name: VLAN_10
             subnets:
               - ip: 10.1.10.1
                 mask: 24
-          - name: Internal
+          - name: VLAN_20
             subnets:  
               - ip: 10.1.20.1
                 mask: 24
       - name: T1_VRF2
         enforced: unenforced
-        bds:
-          - name: T1_VRF2_BD
+        netcent_vlans:
+          - name: VLAN_30
+            subnets:
+              - ip: 10.1.30.1
+                mask: 24
   - name: Tenant2
     vrfs:
       - name: T2_VRF1
         enforced: unenforced
-        bds:
-          - name: T2_VRF1_BD
+        netcent_vlans:
+          - name: VLAN_40
+            subnets:
+              - ip: 10.1.40.1
+                mask: 24
+          - name: VLAN_50
+            subnets:  
+              - ip: 10.1.50.1
+                mask: 24
       - name: T2_VRF2
-        enforced: enforced
-        bds:
-          - name: T2_VRF2_BD
+        enforced: unenforced
+        netcent_vlans:
+          - name: VLAN_60
+            subnets:
+              - ip: 10.1.60.1
+                mask: 24
   - name: Tenant3
     vrfs:
       - name: T3_VRF1
-        enforced: enforced
-        bds:
-          - name: T3_VRF1_BD
+        enforced: unenforced
+        netcent_vlans:
+          - name: VLAN_70
+            subnets:
+              - ip: 10.1.70.1
+                mask: 24
+          - name: VLAN_50
       - name: T3_VRF2
         enforced: unenforced
-        bds:
-          - name: T3_VRF2_BD
-
+        netcent_vlans:
+          - name: VLAN_80
+            subnets:
+              - ip: 10.1.80.1
+                mask: 24

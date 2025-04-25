@@ -13,7 +13,7 @@
     vrf: "{{ vrf_loop.name }}"
     policy_control_preference: "{{ vrf_loop.enforced }}"
 - name: Run BD loop
-  ansible.builtin.include_tasks: ../tasks/L3_bd_loop.yml
-  loop: "{{ vrf_loop.bds }}"
+  ansible.builtin.include_tasks: ../tasks/L3_netcent_vlan_loop.yml
+  loop: "{{ vrf_loop.netcent_vlans }}"
   loop_control:
-    loop_var: bd_loop
+    loop_var: netcent_vlan_loop

@@ -1,0 +1,40 @@
+---
+- name: Testing the BD loop
+  ansible.builtin.debug:
+    msg: "{{ netcent_vlan_loop.name }}"
+- name: Bridge Domain
+  cisco.aci.aci_bd:
+    host: "{{ ansible_host }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    state: "present"
+    validate_certs: False
+    tenant: "{{ tenant_loop.name }}"
+    vrf: "{{ vrf_loop.name }}"
+    bd: "BD_{{ netcent_vlan_loop.name }}"
+- name: Add a new AP
+  cisco.aci.aci_ap:
+    host: "{{ ansible_host }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    validate_certs: false
+    state: present
+    tenant: "{{ tenant_loop.name }}"
+    ap: "AP_{{ netcent_vlan_loop.name }}"
+    description: AP for VLAN 10
+- name: Add a new EPG 
+  cisco.aci.aci_epg:
+    host: "{{ ansible_host }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    validate_certs: false
+    tenant: "{{ tenant_loop.name }}"
+    ap: "AP_{{ netcent_vlan_loop.name }}"
+    epg: "EGP_{{ netcent_vlan_loop.name }}"
+    bd: "BD_{{ netcent_vlan_loop.name }}"
+- name: Run subnet loop
+  ansible.builtin.include_tasks: ../tasks/L4_subnet_loop.yml
+  loop: "{{ netcent_vlan_loop.subnets }}"
+  loop_control:
+    loop_var: subnet_loop
+  ignore_errors: true # Some BDs might not have subnets

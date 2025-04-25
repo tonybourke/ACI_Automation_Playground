@@ -10,6 +10,6 @@
     state: "present"
     validate_certs: False
     tenant: "{{ tenant_loop.name }}"
-    bd: "{{ bd_loop.name }}"
+    bd: "{{ netcent_vlan_loop.name }}"
     gateway: "{{ subnet_loop.ip }}"
     mask: "{{ subnet_loop.mask }}"
